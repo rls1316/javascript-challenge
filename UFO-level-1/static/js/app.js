@@ -1,22 +1,70 @@
-// from data.js -- populate table
-var tableData = data;
+// Populate Table 
 
-// select the table body
+// from data.js
+var tableData = sightings;
+console.log(tableData);
+
+// select the table and table body
+var table = d3.select("table");
 var tbody = d3.select("tbody");
 
-// create function to build table, set values and print from data
-function buildTable(data) {
+// set values and append rows
+tableData.forEach(dataRow => {
+    console.log(dataRow);
     tbody.html("");
-
-    data.forEach((sighting) => {
-        var row = tbody.append("tr");
+    var row = tbody.append("tr");
     
     // iterate thru keys and values
-    Object.entries(sighting).forEach(([key, value]) => console.log(key, value);
-        var cell = row.append("td") cell.text(value)
-    )});
-}
+    Object.entries(dataRow).forEach(([value]) => {
+        console.log(value);
+        var cell = row.append("td");
+        cell.text(value)
+        });
+
+});
 
 // Filter table button
 
+// select the button and the form
+var button = d3.select("#filter-btn");
 
+// create event handlers for clicking the button or pressing the enter key
+button.on("click", buttonClick);
+tbody.html("");
+
+// create function for when filter button is clicked
+function buttonClick() {
+
+    // prevent refresh
+    d3.event.preventDefault();
+
+    // select input element 
+    var inputElement = d3.select("#datetime");
+
+    // select value of input element
+    var inputValue = inputElement.property("value");
+
+    // print value to the console
+    console.log(inputValue);
+
+    // filter data from the date/time selected
+    var filteredData = tableData.filter(dataRow => dataRow.datetime === inputValue);
+ 
+    // print value to the console
+    console.log(filteredData);
+
+    //clear table
+    tbody.html("")
+
+    // build table
+    filteredData.forEach(sightingrow => {
+        trow = tbody.append("tr")
+        tbody.append("td").text(sightingrow.datetime);
+        tbody.append("td").text(sightingrow.city);
+        tbody.append("td").text(sightingrow.state);
+        tbody.append("td").text(sightingrow.country);
+        tbody.append("td").text(sightingrow.shape);
+        tbody.append("td").text(sightingrow.durationMinutes);
+        tbody.append("td").text(sightingrow.comments);
+    })
+}
