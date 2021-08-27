@@ -9,28 +9,36 @@ var table = d3.select("table");
 var tbody = d3.select("tbody");
 
 // set values and append rows
-tableData.forEach(dataRow => {
+tableData.forEach((dataRow) => {
     console.log(dataRow);
     tbody.html("");
     var row = tbody.append("tr");
     
-    // iterate thru keys and values
+// iterate thru keys and values
     Object.entries(dataRow).forEach(([value]) => {
         console.log(value);
-        var cell = row.append("td");
-        cell.text(value)
-        });
+    });
 
+ // build table
+tableData.forEach(dataRow => {
+    trow = tbody.append("tr")
+    tbody.append("td").text(dataRow.datetime);
+    tbody.append("td").text(dataRow.city);
+    tbody.append("td").text(dataRow.state);
+    tbody.append("td").text(dataRow.country);
+    tbody.append("td").text(dataRow.shape);
+    tbody.append("td").text(dataRow.durationMinutes);
+    tbody.append("td").text(dataRow.comments);
+    })
 });
 
 // Filter table button
 
-// select the button and the form
+// select the button
 var button = d3.select("#filter-btn");
 
 // create event handlers for clicking the button or pressing the enter key
 button.on("click", buttonClick);
-tbody.html("");
 
 // create function for when filter button is clicked
 function buttonClick() {
